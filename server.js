@@ -4,6 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 const fetch = require('node-fetch');
+const axios = require('axios')
 
 // server route handler
 app.get('/', function(req, res){
@@ -15,6 +16,19 @@ app.get('/funfact', async (req, res) => {
   io.emit("message", 'Fun fact! ' + ourFact.text);
   res.sendStatus(204);
 });
+app.post('/weather',async function(req,res){
+  const city = req.query.city
+  console.log(city)
+  const weather = await getWeahter(city)
+  io.emit("message", 'Weather Now: ' +weather.toString()+'°F');
+  res.sendStatus(204);
+})
+async function getWeahter(city){
+  apiKey = "db4171e3e4d490375715d4949cb14003";
+  const res = await axios.get("https://api.openweathermap.org/data/2.5/weather?q="+city+"&units=imperial&appid=" + this.apiKey);
+  const data = res.data.main.temp
+  return data
+}
 
 // connect to mongodb
 var db = mongoose.connection;

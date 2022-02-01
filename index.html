@@ -39,11 +39,14 @@
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
      function sendFunFact() {
         fetch('/funfact');
      }
-
+     async function getWeather(city){
+       await axios.post("/weather?city="+city)
+     }
     // load socket.io-client
     var socket = io();
     
@@ -73,6 +76,10 @@
         .append($("<b>").text(nick + ": "))
         .append(document.createTextNode($('#message').val()));
       $('#messages').append(line);
+      if($('#message').val().substring(0,8) == ":weather"){
+        const city = $('#message').val().substring(9)
+        getWeather(city)
+      }
       socket.emit('message', nick + ': ' + $('#message').val());
       $('#message').val('');
       
