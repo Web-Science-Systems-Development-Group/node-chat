@@ -14,7 +14,7 @@ app.get('/funfact', async (req, res) => {
   const ourFact = await fetch("https://uselessfacts.jsph.pl/random.json").then((res) => res.json()); 
   io.emit("message", 'Fun fact! ' + ourFact.text);
   res.sendStatus(204);
-})
+});
 
 // connect to mongodb
 var db = mongoose.connection;
