@@ -27,6 +27,7 @@
     </form>
     <ul id="messages"></ul>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -54,7 +55,8 @@
       var nick = sessionStorage.getItem("nickname");
       
       // append and emit message
-      $('#messages').append($('<li>').text(nick + ': ' + $('#message').val()));
+      const time = moment(Date.now()).format('HH:mm:ss');
+      $('#messages').append($('<li>').text(time + ' ' + nick + ': ' + $('#message').val()));
       socket.emit('message', nick + ': ' + $('#message').val());
       $('#message').val('');
       
@@ -63,7 +65,8 @@
     
     // on msg received, append to list
     socket.on('message', function(msg){
-    $('#messages').append($('<li>').text(msg));
+      const time = moment(Date.now()).format('HH:mm:ss');
+    $('#messages').append($('<li>').text(time + ' ' + msg));
   });
   </script>
 </html>
