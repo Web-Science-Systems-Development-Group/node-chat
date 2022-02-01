@@ -56,7 +56,7 @@
       
       // append and emit message
       const time = moment(Date.now()).format('HH:mm:ss');
-      $('#messages').append($('<li>').text(time + ' ' + nick + ': ' + $('#message').val()));
+      $('#messages').append($('<li>').html(time + ' <b>' + nick + ':</b> ' + $('#message').val()));
       socket.emit('message', nick + ': ' + $('#message').val());
       $('#message').val('');
       
