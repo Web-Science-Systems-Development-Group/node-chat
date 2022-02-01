@@ -66,7 +66,7 @@
     // on msg received, append to list
     socket.on('message', function(msg){
       const time = moment(Date.now()).format('HH:mm:ss');
-    $('#messages').append($('<li>').text(time + ' ' + msg));
-  });
+      $('#messages').append($('<li>').text(time + ' ' + msg));
+    });
   </script>
 </html>
