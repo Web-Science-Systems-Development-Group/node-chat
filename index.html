@@ -20,6 +20,7 @@
   <body>
     <form action="" id="nickname-form">
       <input id="nickname" autocomplete="off" /><button id="select">Nickname</button>
+      <button id="funFact" onclick="sendFunFact()">Fun Fact</button>     
     </form>
     <div id="greeting"></div>
     <form action="" id="chat-form">
@@ -32,6 +33,10 @@
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+     function sendFunFact() {
+        fetch('/funfact');
+     }
+
     // load socket.io-client
     var socket = io();
     
